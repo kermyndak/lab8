@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'nokogiri'
 
 RSpec.describe "Roots", type: :request do
-  describe "GET /input" do
+  describe "GET /" do
     it "returns http success" do
       get root_path
       expect(response).to have_http_status(:success)
@@ -30,7 +30,7 @@ RSpec.describe "Roots", type: :request do
     context 'controller tests' do
       it 'test @arr' do
         get root_show_path, params: { query: 350 }
-        expect(assigns(:arr)).to eq([[1, 1], [6, 6], [28, 28], [220, 284]])
+        expect(assigns(:arr)).to eq([[220, 284]])
       end
 
       it 'test @number' do
@@ -52,10 +52,10 @@ RSpec.describe "Roots", type: :request do
     end
 
     context "parse answer" do
-      it 'parameter 350' do
-        get root_show_path, params: { query: 350 }
+      it 'parameter 1220' do
+        get root_show_path, params: { query: 1220 }
         html = Nokogiri::HTML(response.body)
-        answer = [[1, 1], [6, 6], [28, 28], [220, 284]]
+        answer = [[220, 284], [1184, 1210]]
         td = html.search('td')
         answer.each_with_index do |pair, index|
           exp = [td[2 * index].text.to_i, td[1 + 2 * index].text.to_i]

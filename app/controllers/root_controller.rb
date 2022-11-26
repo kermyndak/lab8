@@ -27,10 +27,8 @@ class RootController < ApplicationController
   end
 
   def generate_arr
-    (1..@number).each do |n|
-      (1..@number).each do |i|
-        @arr << [n, i].sort if find(n).sum == i && find(i).sum == n && !@arr.include?([n, i].sort)
-      end
-    end
+    @arr = (1..@number).map { |i| [i, find(i).sum] }
+                       .select { |val, sum| sum <= @number && val != sum && val == find(sum).sum }
+                       .uniq(&:min)
   end
 end
