@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'nokogiri'
 
 RSpec.describe "Roots", type: :request do
   describe "GET /" do
